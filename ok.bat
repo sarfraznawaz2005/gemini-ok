@@ -14,4 +14,4 @@ if "%~1"=="" (
 :: Ask Gemini, then pipe its Markdown straight into Glow’s stdin (the “-” arg)
 :: Install glow if not already installed with: choco install glow
 
-gemini --show-memory-usage -p "%*" | glow -
+gemini -y --show-memory-usage -p "%*" | glow -

@@ -1,4 +1,5 @@
 # gemini-ok
+
 Allows me to run gemini cli like "ok do this" on cli. NOTE: Add to PATH.
 
 Example:
@@ -9,4 +10,4 @@ ok extract audio from video.mp4
 etc...
 ```
 
-There is also `okk` which works in yolo mode instead.
+
