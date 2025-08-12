@@ -3,12 +3,14 @@ param(
   [string[]]$UserArgs
 )
 
+$GlowWidth = 120
 $ErrorActionPreference = 'Stop'
 
 # --- Enhanced UTF-8 console output with Unicode support ---
 $prevOutEnc = [Console]::OutputEncoding
 $prevInEnc  = [Console]::InputEncoding
 $prevPSOut  = $OutputEncoding
+
 try {
   # Set both input and output to UTF-8 without BOM
   [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
@@ -163,11 +165,9 @@ function Show-WithGlow {
   $prevPager = $env:GLOW_PAGER
   $prevPythonIo = $env:PYTHONIOENCODING
 
-  Write-Host ("[Glow] Code page before: {0}" -f $prevCp) -ForegroundColor Cyan
   try {
     # Ensure UTF-8 code page
     Set-ConsoleCodePage -CodePage 65001
-    Write-Host ("[Glow] Code page set to: {0}" -f (Get-ConsoleCodePage)) -ForegroundColor Green
 
     # Initialize Unicode environment
     Initialize-UnicodeEnvironment
@@ -176,8 +176,7 @@ function Show-WithGlow {
     # Additional glow-specific settings for better Unicode rendering
     $env:GLOW_STYLE = 'auto'  # Let glow auto-detect terminal capabilities
     
-    Write-Host "[Glow] Rendering with Unicode support..." -ForegroundColor Yellow
-    & $scriptGlow $Path
+    & $scriptGlow -w $GlowWidth $Path
   }
   catch {
     Write-Host "Error running glow: $_" -ForegroundColor Red
@@ -188,7 +187,6 @@ function Show-WithGlow {
   finally {
     # Restore everything
     Set-ConsoleCodePage -CodePage $prevCp
-    Write-Host ("[Glow] Code page restored: {0}" -f (Get-ConsoleCodePage)) -ForegroundColor Cyan
     $env:LANG       = $prevLang
     $env:LC_ALL     = $prevLcAll
     $env:GLOW_PAGER = $prevPager
@@ -304,7 +302,7 @@ elseif ($glowCmd = Get-Command glow -ErrorAction SilentlyContinue) {
     $env:GLOW_PAGER = 'never'
     $env:GLOW_STYLE = 'auto'
 
-    & $glowCmd.Source $tmpFile
+    & $glowCmd.Source -w $GlowWidth $tmpFile
   }
   catch {
     Write-Host "Error running glow: $_" -ForegroundColor Red
