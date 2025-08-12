@@ -42,12 +42,6 @@ Rules you must follow:
 7) Finally, verify the user request has been completed.
 8) After every heading, insert one blank line before any list or paragraph.
 9) Use markdown table format when it makes sense for the answer in OUTPUT section.
-9) In OUTPUT section only, when generating numbered or bulleted lists in Markdown, insert a line containing only &nbsp; between each list item and after the last item. Do not remove &nbsp;. Treat it as literal text, not as a placeholder. Keep it on its own line with no spaces before or after. Example:
-	1. First item  
-	&nbsp;
-	2. Second item  
-	&nbsp;
-	3. Third item  
 
 NOTE: Output of your answer will be forwarded to glow tool, so use markdown formatting supported by the glow tool with good terminal compatibility.
 
