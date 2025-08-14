@@ -246,18 +246,6 @@ try {
     Show-FriendlyGeminiError -ErrorText ("Gemini exited with code {0}. {1}" -f $gemExit, $content)
     exit $gemExit
   }
-
-  # Catch silent/short error-like responses even with exit 0
-  $looksErrorish = $false
-  if ([string]::IsNullOrWhiteSpace($content)) { $looksErrorish = $true }
-  elseif ($content.Length -lt 200 -and $content -match '(?i)\b(error|invalid|unauthorized|quota|rate|timeout|unavailable|failed|exception)\b') {
-    $looksErrorish = $true
-  }
-
-  if ($looksErrorish) {
-    Show-FriendlyGeminiError -ErrorText $content
-    exit 1
-  }
 }
 catch {
   Show-FriendlyGeminiError -ErrorText ("Failed to run gemini: {0}" -f $_.Exception.Message)
