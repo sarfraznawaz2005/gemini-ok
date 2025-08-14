@@ -1,0 +1,16 @@
+https://github.com/CursorTouch/Windows-MCP
+
+{
+  "selectedAuthType": "gemini-api-key",
+   "mcpServers": {
+    "windows-mcp": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:\\Users\\Sarfraz\\OneDrive\\Documents\\Windows-MCP",
+        "run",
+        "main.py"
+      ]
+    }
+  }
+}
